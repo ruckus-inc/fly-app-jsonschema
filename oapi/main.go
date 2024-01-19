@@ -8,12 +8,14 @@ import (
 	"runtime"
 	"strings"
 
+	"github.com/superfly/flyctl/api"
 	"github.com/superfly/flyctl/internal/appconfig"
 	jsonschema "github.com/swaggest/jsonschema-go"
 )
 
 func main() {
 	reflector := jsonschema.Reflector{}
+
 	reflector.DefaultOptions = append(reflector.DefaultOptions, jsonschema.InterceptDefName(
 		func(t reflect.Type, defaultDefName string) string {
 			defName := defaultDefName
@@ -22,9 +24,10 @@ func main() {
 			return defName
 		},
 	))
+	reflector.AddTypeMapping(api.Duration{}, new(int64))
 
 	schema, err := reflector.Reflect(appconfig.Config{})
-	title := "FlyAppConfig"
+	title := "Config"
 	schema.Title = &title
 	if err != nil {
 		panic(err)

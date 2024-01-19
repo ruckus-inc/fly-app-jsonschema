@@ -1,5 +1,5 @@
 {
-  "title": "FlyAppConfig",
+  "title": "Config",
   "definitions": {
     "Build": {
       "properties": {
@@ -86,7 +86,10 @@
           "type": "string"
         },
         "release_command_timeout": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "strategy": {
           "enum": [
@@ -98,12 +101,12 @@
           "type": "string"
         },
         "wait_timeout": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         }
       },
-      "type": "object"
-    },
-    "Duration": {
       "type": "object"
     },
     "Experimental": {
@@ -434,7 +437,10 @@
     "ServiceHTTPCheck": {
       "properties": {
         "grace_period": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "headers": {
           "additionalProperties": {
@@ -443,7 +449,10 @@
           "type": "object"
         },
         "interval": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "method": {
           "type": [
@@ -464,7 +473,10 @@
           ]
         },
         "timeout": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "tls_server_name": {
           "type": [
@@ -484,13 +496,22 @@
     "ServiceTCPCheck": {
       "properties": {
         "grace_period": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "interval": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "timeout": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         }
       },
       "type": "object"
@@ -532,7 +553,10 @@
     "ToplevelCheck": {
       "properties": {
         "grace_period": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "headers": {
           "additionalProperties": {
@@ -541,7 +565,10 @@
           "type": "object"
         },
         "interval": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "method": {
           "type": [
@@ -574,7 +601,10 @@
           ]
         },
         "timeout": {
-          "$ref": "#/definitions/Duration"
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "tls_server_name": {
           "type": [
@@ -654,7 +684,10 @@
       ]
     },
     "kill_timeout": {
-      "$ref": "#/definitions/Duration"
+      "type": [
+        "null",
+        "integer"
+      ]
     },
     "metrics": {
       "items": {
