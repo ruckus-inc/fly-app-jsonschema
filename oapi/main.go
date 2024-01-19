@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"reflect"
 	"runtime"
+	"strings"
 
 	"github.com/superfly/flyctl/internal/appconfig"
 	jsonschema "github.com/swaggest/jsonschema-go"
@@ -12,6 +14,15 @@ import (
 
 func main() {
 	reflector := jsonschema.Reflector{}
+	reflector.DefaultOptions = append(reflector.DefaultOptions, jsonschema.InterceptDefName(
+		func(t reflect.Type, defaultDefName string) string {
+			defName := defaultDefName
+			defName = strings.TrimPrefix(defName, "Appconfig")
+			defName = strings.TrimPrefix(defName, "Api")
+			return defName
+		},
+	))
+
 	schema, err := reflector.Reflect(appconfig.Config{})
 	title := "FlyAppConfig"
 	schema.Title = &title

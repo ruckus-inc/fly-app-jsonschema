@@ -1,151 +1,7 @@
 {
   "title": "FlyAppConfig",
   "definitions": {
-    "ApiDuration": {
-      "type": "object"
-    },
-    "ApiHTTPOptions": {
-      "properties": {
-        "compress": {
-          "type": [
-            "null",
-            "boolean"
-          ]
-        },
-        "h2_backend": {
-          "type": [
-            "null",
-            "boolean"
-          ]
-        },
-        "response": {
-          "$ref": "#/definitions/ApiHTTPResponseOptions"
-        }
-      },
-      "type": "object"
-    },
-    "ApiHTTPResponseOptions": {
-      "properties": {
-        "headers": {
-          "additionalProperties": {},
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "ApiMachineGuest": {
-      "properties": {
-        "cpu_kind": {
-          "type": "string"
-        },
-        "cpus": {
-          "type": "integer"
-        },
-        "gpu_kind": {
-          "type": "string"
-        },
-        "host_dedication_id": {
-          "type": "string"
-        },
-        "kernel_args": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "memory_mb": {
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    "ApiMachinePort": {
-      "properties": {
-        "end_port": {
-          "type": [
-            "null",
-            "integer"
-          ]
-        },
-        "force_https": {
-          "type": "boolean"
-        },
-        "handlers": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "http_options": {
-          "$ref": "#/definitions/ApiHTTPOptions"
-        },
-        "port": {
-          "type": [
-            "null",
-            "integer"
-          ]
-        },
-        "proxy_proto_options": {
-          "$ref": "#/definitions/ApiProxyProtoOptions"
-        },
-        "start_port": {
-          "type": [
-            "null",
-            "integer"
-          ]
-        },
-        "tls_options": {
-          "$ref": "#/definitions/ApiTLSOptions"
-        }
-      },
-      "type": "object"
-    },
-    "ApiMachineServiceConcurrency": {
-      "properties": {
-        "hard_limit": {
-          "type": "integer"
-        },
-        "soft_limit": {
-          "type": "integer"
-        },
-        "type": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "ApiProxyProtoOptions": {
-      "properties": {
-        "version": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "ApiTLSOptions": {
-      "properties": {
-        "alpn": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "default_self_signed": {
-          "type": [
-            "null",
-            "boolean"
-          ]
-        },
-        "versions": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "AppconfigBuild": {
+    "Build": {
       "properties": {
         "args": {
           "additionalProperties": {
@@ -184,10 +40,10 @@
       },
       "type": "object"
     },
-    "AppconfigCompute": {
+    "Compute": {
       "properties": {
         "MachineGuest": {
-          "$ref": "#/definitions/ApiMachineGuest"
+          "$ref": "#/definitions/MachineGuest"
         },
         "memory": {
           "type": "string"
@@ -218,7 +74,7 @@
       },
       "type": "object"
     },
-    "AppconfigDeploy": {
+    "Deploy": {
       "properties": {
         "max_unavailable": {
           "type": [
@@ -230,7 +86,7 @@
           "type": "string"
         },
         "release_command_timeout": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         },
         "strategy": {
           "enum": [
@@ -242,12 +98,15 @@
           "type": "string"
         },
         "wait_timeout": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         }
       },
       "type": "object"
     },
-    "AppconfigExperimental": {
+    "Duration": {
+      "type": "object"
+    },
+    "Experimental": {
       "properties": {
         "auto_rollback": {
           "type": "boolean"
@@ -279,7 +138,7 @@
       },
       "type": "object"
     },
-    "AppconfigFile": {
+    "File": {
       "properties": {
         "guest_path": {
           "type": "string"
@@ -302,7 +161,36 @@
       },
       "type": "object"
     },
-    "AppconfigHTTPService": {
+    "HTTPOptions": {
+      "properties": {
+        "compress": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "h2_backend": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "response": {
+          "$ref": "#/definitions/HTTPResponseOptions"
+        }
+      },
+      "type": "object"
+    },
+    "HTTPResponseOptions": {
+      "properties": {
+        "headers": {
+          "additionalProperties": {},
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "HTTPService": {
       "properties": {
         "auto_start_machines": {
           "type": [
@@ -318,18 +206,18 @@
         },
         "checks": {
           "items": {
-            "$ref": "#/definitions/AppconfigServiceHTTPCheck"
+            "$ref": "#/definitions/ServiceHTTPCheck"
           },
           "type": "array"
         },
         "concurrency": {
-          "$ref": "#/definitions/ApiMachineServiceConcurrency"
+          "$ref": "#/definitions/MachineServiceConcurrency"
         },
         "force_https": {
           "type": "boolean"
         },
         "http_options": {
-          "$ref": "#/definitions/ApiHTTPOptions"
+          "$ref": "#/definitions/HTTPOptions"
         },
         "internal_port": {
           "type": "integer"
@@ -347,12 +235,93 @@
           "type": "array"
         },
         "tls_options": {
-          "$ref": "#/definitions/ApiTLSOptions"
+          "$ref": "#/definitions/TLSOptions"
         }
       },
       "type": "object"
     },
-    "AppconfigMetrics": {
+    "MachineGuest": {
+      "properties": {
+        "cpu_kind": {
+          "type": "string"
+        },
+        "cpus": {
+          "type": "integer"
+        },
+        "gpu_kind": {
+          "type": "string"
+        },
+        "host_dedication_id": {
+          "type": "string"
+        },
+        "kernel_args": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "memory_mb": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "MachinePort": {
+      "properties": {
+        "end_port": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "force_https": {
+          "type": "boolean"
+        },
+        "handlers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "http_options": {
+          "$ref": "#/definitions/HTTPOptions"
+        },
+        "port": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "proxy_proto_options": {
+          "$ref": "#/definitions/ProxyProtoOptions"
+        },
+        "start_port": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "tls_options": {
+          "$ref": "#/definitions/TLSOptions"
+        }
+      },
+      "type": "object"
+    },
+    "MachineServiceConcurrency": {
+      "properties": {
+        "hard_limit": {
+          "type": "integer"
+        },
+        "soft_limit": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Metrics": {
       "properties": {
         "path": {
           "type": "string"
@@ -369,7 +338,7 @@
       },
       "type": "object"
     },
-    "AppconfigMount": {
+    "Mount": {
       "properties": {
         "auto_extend_size_increment": {
           "type": "string"
@@ -398,7 +367,15 @@
       },
       "type": "object"
     },
-    "AppconfigService": {
+    "ProxyProtoOptions": {
+      "properties": {
+        "version": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Service": {
       "properties": {
         "auto_start_machines": {
           "type": [
@@ -413,11 +390,11 @@
           ]
         },
         "concurrency": {
-          "$ref": "#/definitions/ApiMachineServiceConcurrency"
+          "$ref": "#/definitions/MachineServiceConcurrency"
         },
         "http_checks": {
           "items": {
-            "$ref": "#/definitions/AppconfigServiceHTTPCheck"
+            "$ref": "#/definitions/ServiceHTTPCheck"
           },
           "type": "array"
         },
@@ -432,7 +409,7 @@
         },
         "ports": {
           "items": {
-            "$ref": "#/definitions/ApiMachinePort"
+            "$ref": "#/definitions/MachinePort"
           },
           "type": "array"
         },
@@ -447,17 +424,17 @@
         },
         "tcp_checks": {
           "items": {
-            "$ref": "#/definitions/AppconfigServiceTCPCheck"
+            "$ref": "#/definitions/ServiceTCPCheck"
           },
           "type": "array"
         }
       },
       "type": "object"
     },
-    "AppconfigServiceHTTPCheck": {
+    "ServiceHTTPCheck": {
       "properties": {
         "grace_period": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         },
         "headers": {
           "additionalProperties": {
@@ -466,7 +443,7 @@
           "type": "object"
         },
         "interval": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         },
         "method": {
           "type": [
@@ -487,7 +464,7 @@
           ]
         },
         "timeout": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         },
         "tls_server_name": {
           "type": [
@@ -504,21 +481,21 @@
       },
       "type": "object"
     },
-    "AppconfigServiceTCPCheck": {
+    "ServiceTCPCheck": {
       "properties": {
         "grace_period": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         },
         "interval": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         },
         "timeout": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         }
       },
       "type": "object"
     },
-    "AppconfigStatic": {
+    "Static": {
       "properties": {
         "guest_path": {
           "type": "string"
@@ -529,10 +506,33 @@
       },
       "type": "object"
     },
-    "AppconfigToplevelCheck": {
+    "TLSOptions": {
+      "properties": {
+        "alpn": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "default_self_signed": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "versions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ToplevelCheck": {
       "properties": {
         "grace_period": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         },
         "headers": {
           "additionalProperties": {
@@ -541,7 +541,7 @@
           "type": "object"
         },
         "interval": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         },
         "method": {
           "type": [
@@ -574,7 +574,7 @@
           ]
         },
         "timeout": {
-          "$ref": "#/definitions/ApiDuration"
+          "$ref": "#/definitions/Duration"
         },
         "tls_server_name": {
           "type": [
@@ -603,11 +603,11 @@
       "type": "string"
     },
     "build": {
-      "$ref": "#/definitions/AppconfigBuild"
+      "$ref": "#/definitions/Build"
     },
     "checks": {
       "additionalProperties": {
-        "$ref": "#/definitions/AppconfigToplevelCheck"
+        "$ref": "#/definitions/ToplevelCheck"
       },
       "type": "object"
     },
@@ -615,7 +615,7 @@
       "type": "string"
     },
     "deploy": {
-      "$ref": "#/definitions/AppconfigDeploy"
+      "$ref": "#/definitions/Deploy"
     },
     "env": {
       "additionalProperties": {
@@ -624,11 +624,11 @@
       "type": "object"
     },
     "experimental": {
-      "$ref": "#/definitions/AppconfigExperimental"
+      "$ref": "#/definitions/Experimental"
     },
     "files": {
       "items": {
-        "$ref": "#/definitions/AppconfigFile"
+        "$ref": "#/definitions/File"
       },
       "type": "array"
     },
@@ -636,7 +636,7 @@
       "type": "string"
     },
     "http_service": {
-      "$ref": "#/definitions/AppconfigHTTPService"
+      "$ref": "#/definitions/HTTPService"
     },
     "kill_signal": {
       "enum": [
@@ -654,17 +654,17 @@
       ]
     },
     "kill_timeout": {
-      "$ref": "#/definitions/ApiDuration"
+      "$ref": "#/definitions/Duration"
     },
     "metrics": {
       "items": {
-        "$ref": "#/definitions/AppconfigMetrics"
+        "$ref": "#/definitions/Metrics"
       },
       "type": "array"
     },
     "mounts": {
       "items": {
-        "$ref": "#/definitions/AppconfigMount"
+        "$ref": "#/definitions/Mount"
       },
       "type": "array"
     },
@@ -679,13 +679,13 @@
     },
     "services": {
       "items": {
-        "$ref": "#/definitions/AppconfigService"
+        "$ref": "#/definitions/Service"
       },
       "type": "array"
     },
     "statics": {
       "items": {
-        "$ref": "#/definitions/AppconfigStatic"
+        "$ref": "#/definitions/Static"
       },
       "type": "array"
     },
@@ -697,7 +697,7 @@
     },
     "vm": {
       "items": {
-        "$ref": "#/definitions/AppconfigCompute"
+        "$ref": "#/definitions/Compute"
       },
       "type": "array"
     }
