@@ -6,13 +6,18 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/invopop/jsonschema"
 	"github.com/superfly/flyctl/internal/appconfig"
+	jsonschema "github.com/swaggest/jsonschema-go"
 )
 
 func main() {
-	schema := jsonschema.Reflect(&appconfig.Config{})
-	schema.Ref = ""
+	reflector := jsonschema.Reflector{}
+	schema, err := reflector.Reflect(appconfig.Config{})
+	title := "FlyAppConfig"
+	schema.Title = &title
+	if err != nil {
+		panic(err)
+	}
 	json, err := json.MarshalIndent(schema, "", "  ")
 	if err != nil {
 		panic(err)
