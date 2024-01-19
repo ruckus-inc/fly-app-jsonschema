@@ -42,7 +42,7 @@ type Metrics struct {
 type Config struct {
 	AppName        string        `toml:"app,omitempty" json:"app,omitempty"`
 	PrimaryRegion  string        `toml:"primary_region,omitempty" json:"primary_region,omitempty"`
-	KillSignal     *string       `toml:"kill_signal,omitempty" json:"kill_signal,omitempty"`
+	KillSignal     *string       `toml:"kill_signal,omitempty" json:"kill_signal,omitempty" jsonschema:"enum=SIGINT,enum=SIGTERM,enum=SIGQUIT,enum=SIGUSR1,enum=SIGUSR2,enum=SIGKILL,enum=SIGSTOP"`
 	KillTimeout    *api.Duration `toml:"kill_timeout,omitempty" json:"kill_timeout,omitempty"`
 	SwapSizeMB     *int          `toml:"swap_size_mb,omitempty" json:"swap_size_mb,omitempty"`
 	ConsoleCommand string        `toml:"console_command,omitempty" json:"console_command,omitempty"`
@@ -92,7 +92,7 @@ type Config struct {
 type Deploy struct {
 	ReleaseCommand        string        `toml:"release_command,omitempty" json:"release_command,omitempty"`
 	ReleaseCommandTimeout *api.Duration `toml:"release_command_timeout,omitempty" json:"release_command_timeout,omitempty"`
-	Strategy              string        `toml:"strategy,omitempty" json:"strategy,omitempty"`
+	Strategy              string        `toml:"strategy,omitempty" json:"strategy,omitempty" jsonschema:"enum=canary,enum=rolling,enum=bluegreen,enum=immediate"`
 	MaxUnavailable        *float64      `toml:"max_unavailable,omitempty" json:"max_unavailable,omitempty"`
 	WaitTimeout           *api.Duration `toml:"wait_timeout,omitempty" json:"wait_timeout,omitempty"`
 }
@@ -163,7 +163,7 @@ type Experimental struct {
 }
 
 type Compute struct {
-	Size              string `json:"size,omitempty" toml:"size,omitempty"`
+	Size              string `json:"size,omitempty" toml:"size,omitempty" jsonschema:"enum=shared-cpu-1x,enum=shared-cpu-2x,enum=shared-cpu-4x,enum=shared-cpu-8x,enum=performance-1x,enum=performance-2x,enum=performance-4x,enum=performance-8x,enum=performance-16x,enum=a100-40gb,enum=a100-80gb,enum=l40s"`
 	Memory            string `json:"memory,omitempty" toml:"memory,omitempty"`
 	*api.MachineGuest `toml:",inline" json:",inline"`
 	Processes         []string `json:"processes,omitempty" toml:"processes,omitempty"`

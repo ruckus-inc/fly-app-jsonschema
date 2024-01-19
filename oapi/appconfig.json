@@ -1,7 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/superfly/flyctl/internal/appconfig/config",
-  "$ref": "#/$defs/Config",
   "$defs": {
     "Build": {
       "properties": {
@@ -45,7 +44,21 @@
     "Compute": {
       "properties": {
         "size": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "shared-cpu-1x",
+            "shared-cpu-2x",
+            "shared-cpu-4x",
+            "shared-cpu-8x",
+            "performance-1x",
+            "performance-2x",
+            "performance-4x",
+            "performance-8x",
+            "performance-16x",
+            "a100-40gb",
+            "a100-80gb",
+            "l40s"
+          ]
         },
         "memory": {
           "type": "string"
@@ -90,7 +103,16 @@
           "type": "string"
         },
         "kill_signal": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "SIGINT",
+            "SIGTERM",
+            "SIGQUIT",
+            "SIGUSR1",
+            "SIGUSR2",
+            "SIGKILL",
+            "SIGSTOP"
+          ]
         },
         "kill_timeout": {
           "$ref": "#/$defs/Duration"
@@ -183,7 +205,13 @@
           "$ref": "#/$defs/Duration"
         },
         "strategy": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "canary",
+            "rolling",
+            "bluegreen",
+            "immediate"
+          ]
         },
         "max_unavailable": {
           "type": "number"

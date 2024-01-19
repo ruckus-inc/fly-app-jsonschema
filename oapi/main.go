@@ -12,6 +12,7 @@ import (
 
 func main() {
 	schema := jsonschema.Reflect(&appconfig.Config{})
+	schema.Ref = ""
 	json, err := json.MarshalIndent(schema, "", "  ")
 	if err != nil {
 		panic(err)
