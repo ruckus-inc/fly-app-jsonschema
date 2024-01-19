@@ -42,11 +42,29 @@
     },
     "Compute": {
       "properties": {
-        "MachineGuest": {
-          "$ref": "#/definitions/MachineGuest"
+        "cpu_kind": {
+          "type": "string"
+        },
+        "cpus": {
+          "type": "integer"
+        },
+        "gpu_kind": {
+          "type": "string"
+        },
+        "host_dedication_id": {
+          "type": "string"
+        },
+        "kernel_args": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
         },
         "memory": {
           "type": "string"
+        },
+        "memory_mb": {
+          "type": "integer"
         },
         "processes": {
           "items": {
@@ -239,32 +257,6 @@
         },
         "tls_options": {
           "$ref": "#/definitions/TLSOptions"
-        }
-      },
-      "type": "object"
-    },
-    "MachineGuest": {
-      "properties": {
-        "cpu_kind": {
-          "type": "string"
-        },
-        "cpus": {
-          "type": "integer"
-        },
-        "gpu_kind": {
-          "type": "string"
-        },
-        "host_dedication_id": {
-          "type": "string"
-        },
-        "kernel_args": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "memory_mb": {
-          "type": "integer"
         }
       },
       "type": "object"

@@ -163,10 +163,10 @@ type Experimental struct {
 }
 
 type Compute struct {
-	Size              string `json:"size,omitempty" toml:"size,omitempty" enum:"shared-cpu-1x,shared-cpu-2x,shared-cpu-4x,shared-cpu-8x,performance-1x,performance-2x,performance-4x,performance-8x,performance-16x,a100-40gb,a100-80gb,l40s"`
-	Memory            string `json:"memory,omitempty" toml:"memory,omitempty"`
-	*api.MachineGuest `toml:",inline" json:",inline"`
-	Processes         []string `json:"processes,omitempty" toml:"processes,omitempty"`
+	Size   string `json:"size,omitempty" toml:"size,omitempty" enum:"shared-cpu-1x,shared-cpu-2x,shared-cpu-4x,shared-cpu-8x,performance-1x,performance-2x,performance-4x,performance-8x,performance-16x,a100-40gb,a100-80gb,l40s"`
+	Memory string `json:"memory,omitempty" toml:"memory,omitempty"`
+	*api.MachineGuest
+	Processes []string `json:"processes,omitempty" toml:"processes,omitempty"`
 }
 
 func (c *Config) ConfigFilePath() string {
